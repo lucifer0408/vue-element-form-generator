@@ -28,12 +28,11 @@
               :inputtype="item.inputtype"
               :placeholder="item.placeholder"
               :clearable="item.clearable"
-              :show-password="item.showPassword"
+              :showPassword="item.showPassword"
               :size="item.size"
               :rows="item.rows"
 
-              @change="handleEvent"
-              @clear="handleEvent"
+              @customEvent="handleEvent"
             ></component>
 
             <!-- fill -->
@@ -44,13 +43,13 @@
               v-if="item.type == 'MyButton'"
               :btnType="item.btnType"
               :btnText="item.btnText"
-              :readonly="item.readonly"
+              :disabled="item.readonly"
               :plain="item.plain"
               :round="item.round"
               :size="item.size"
               :componentid="item.id"
               :icon="item.icon"
-              @click="handleEvent"
+              @customEvent="handleEvent"
             ></my-button>
 
           </el-form-item>
@@ -203,8 +202,8 @@ export default {
 
       this.formConfigPage = config
       this.formDefaultData = defaultData
-      console.log('处理后的表单设置: ', this.formConfigPage)
-      console.log('处理后的表单默认数据', this.formDefaultData)
+      // console.log('处理后的表单设置: ', this.formConfigPage)
+      // console.log('处理后的表单默认数据', this.formDefaultData)
     },
     /**
      * @description: 将外部传入的表单数据和表单的默认数据进行合并(以表单的外部数据为主)
@@ -214,7 +213,7 @@ export default {
         ...this.formDefaultData,
         ...this.formCtx.formData
       }
-      console.log('生成的表单数据', this.formCtx.formData)
+      // console.log('生成的表单数据', this.formCtx.formData)
     },
     /**
      * @description: 生成表单事件

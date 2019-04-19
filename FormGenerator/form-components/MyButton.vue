@@ -1,10 +1,24 @@
+<!--
+  @author: Lucifer
+  @description: 按钮组件
+
+  @param: btnType(String): 按钮类型
+  @param: plain(Boolean): 是否朴素按钮
+  @param: round(Boolean): 是否圆角
+  @param: disabled(Boolean): 是否禁用
+  @param: size(String): 尺寸，默认medium
+  @param: icon(String): 按钮图标
+
+  @event: click: 点击事件
+ -->
+
 <template>
   <div class="my-button">
     <el-button
       :type="btnType"
       :plain="plain"
       :round="round"
-      :disabled="readonly"
+      :disabled="disabled"
       :size="size"
       :icon="icon"
       @click="btnClick"
@@ -28,7 +42,7 @@ export default {
       type: Boolean,
       default: false
     },
-    readonly: {
+    disabled: {
       type: Boolean,
       default: false
     },
@@ -54,8 +68,11 @@ export default {
   },
   mounted() {},
   methods: {
+    /**
+     * @description: 按钮的点击事件
+     * */
     btnClick() {
-      this.$emit('click', this.componentid, 'click')
+      this.$emit('customEvent', this.componentid, 'click')
     }
   }
 }

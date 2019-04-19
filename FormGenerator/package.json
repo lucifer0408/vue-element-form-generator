@@ -1,0 +1,36 @@
+{
+  "name": "vue-element-form-generator",
+  "author": "Lucifer",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "test": "echo \"This is Vue-Element-Form-Generator\""
+  },
+  "dependencies": {
+    "element-ui": "^2.7.0",
+    "vue": "^2.6.6"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "Vue",
+    "Element",
+    "ElementUI",
+    "Form",
+    "Form Generator"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucifer0408/vue-element-form-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lucifer0408/vue-element-form-generator/issues"
+  },
+  "homepage": "https://github.com/lucifer0408/vue-element-form-generator#readme",
+  "files": [
+    "package.json",
+    "index.js",
+    "FormGenerator.vue",
+    "form-components/*"
+  ]
+}

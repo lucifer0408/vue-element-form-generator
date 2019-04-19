@@ -1,3 +1,14 @@
+<!--
+  @author: Lucifer
+  @description: 开关组件
+
+  @param: readonly(Boolean): 是否只读
+  @param: activeValue(String/Boolean/Number): 打开状态的取值
+  @param: inactiveValue(String/Boolean/Number): 关闭状态的取值
+
+  @event: change: 值改变事件
+-->
+
 <template>
   <div class="my-switch">
     <el-switch
@@ -14,7 +25,7 @@ export default {
   name: 'MySwitch',
   model: {
     prop: 'selectval',
-    event: 'input'
+    event: 'updateSwitch'
   },
   props: {
     selectval: {
@@ -43,16 +54,15 @@ export default {
       switchVal: this.selectval
     }
   },
-  methods: {
-
-  },
   watch: {
-    selectval(curVal) {
+    selectval(curVal, oldVal) {
+      console.log('Switch组件[', this.componentid, ']外部的值改变了，从', oldVal, '变成了', curVal)
       this.switchVal = curVal
     },
-    switchVal(curVal) {
-      this.$emit('input', curVal)
-      this.$emit('change', this.componentid, 'change', curVal)
+    switchVal(curVal, oldVal) {
+      console.log('Switch组件[', this.componentid, ']内部的值改变了，从', oldVal, '变成了', curVal)
+      this.$emit('updateSwitch', curVal)
+      this.$emit('customEvent', this.componentid, 'change', curVal)
     }
   }
 }
