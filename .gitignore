@@ -64,3 +64,7 @@ typings/
 # IDE Files
 .idea
 .vscode
+
+# FormGenerator Dependences
+FormGenerator/node_modules
+FormGenerator/package-lock.json

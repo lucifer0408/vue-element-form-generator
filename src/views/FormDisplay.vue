@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import FormGenerator from '@/components/FormGenerator'
+import FormGenerator from 'vue-element-form-generator'
 
 export default {
   components: { FormGenerator },
@@ -70,8 +70,7 @@ export default {
             type: 'hidden',
             id: 'hidden1',
             name: 'hidden1',
-            width: 6,
-            label: '呵呵'
+            width: 6
           },
           {
             type: 'fill'
@@ -85,6 +84,7 @@ export default {
             events: {
               click(formCtx) {
                 formCtx.formData.switch1 = !formCtx.formData.switch1
+                formCtx.formData.text1 = formCtx.formData.text1 + formCtx.formData.switch2
               }
             }
           },
