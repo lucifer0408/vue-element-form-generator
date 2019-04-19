@@ -8,18 +8,13 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [{
       path: '/',
-      name: 'home',
-      component: () => import( /* webpackChunkName: "home" */ './views/Home')
+      name: 'formDisplay',
+      component: () => import( /* webpackChunkName: "home" */ './views/FormDisplay')
     },
     {
       path: '/about',
       name: 'about',
       component: () => import( /* webpackChunkName: "about" */ './views/About')
-    },
-    {
-      path: '/formDisplay',
-      name: 'formDisplay',
-      component: () => import( /* webpackChunkName: "form" */ './views/FormDisplay')
     }
   ]
 })
