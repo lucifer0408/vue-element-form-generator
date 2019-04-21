@@ -11,7 +11,7 @@
   "dependencies": {
     "element-ui": "^2.7.0",
     "vue": "^2.6.6",
-    "vue-element-form-generator": "0.0.1",
+    "vue-element-form-generator": "0.0.1-5",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
@@ -32,7 +32,7 @@
     "Form",
     "Form Generator"
   ],
-  "license": "MIT",
+  "license": "996.ICU",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lucifer0408/vue-element-form-generator.git"
@@ -40,11 +40,5 @@
   "bugs": {
     "url": "https://github.com/lucifer0408/vue-element-form-generator/issues"
   },
-  "homepage": "https://github.com/lucifer0408/vue-element-form-generator#readme",
-  "files": [
-    "package.json",
-    "src/components/FormGenerator/index.js",
-    "src/components/FormGenerator/FormGenerator.vue",
-    "src/components/FormGenerator/form-components/*"
-  ]
+  "homepage": "https://github.com/lucifer0408/vue-element-form-generator#readme"
 }

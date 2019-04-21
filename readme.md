@@ -13,14 +13,9 @@
     * Switch（开关）
     * Input（文本框）
     * Button（按钮）
-* 添加的组件
-    * Fill（填充整行）
-
-## 4. 组件详情
-
-### 4.1 Switch（开关）
-
-### 4.2 Input（文本框）
-
-### 4.3 Button（按钮）
-
+    * Number（数字）
+    * Radio（单选框）
+    * Checkbox（复选框）
+    * Select（下拉框）
+* 添加的自定义组件
+    * Fill（填充占位）

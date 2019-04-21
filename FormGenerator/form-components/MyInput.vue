@@ -35,8 +35,11 @@
 </template>
 
 <script>
+import LogMixin from '../mixins/log-mixin'
+
 export default {
   name: 'MyInput',
+  mixins: [ LogMixin ],
   model: {
     prop: 'inputvalue',
     event: 'updateInput'
@@ -130,18 +133,18 @@ export default {
      * @description: 监听传入的inputvalue的变化，当发生变化时更新组件内部的inputRealValue
      * */
     inputvalue(curVal, oldVal) {
-      console.log('Input组件[', this.componentid, ']外部的值改变了，从', oldVal, '变成了', curVal)
+      this.debugLog('Input组件[', this.componentid, ']外部的值改变了，从', oldVal, '变成了', curVal)
       this.inputRealValue = curVal
     },
     /**
      * @description: 监听内部的inputRealValue的变化，如果当前是聚焦状态，不进行处理；如果当前不是聚焦状态，则触发change事件
      */
     inputRealValue(curVal, oldVal) {
-      console.log('Input组件[', this.componentid, ']内部的值改变了，从', oldVal, '变成了', curVal)
+      this.debugLog('Input组件[', this.componentid, ']内部的值改变了，从', oldVal, '变成了', curVal)
       this.config.valueChanged = true
 
       if (!this.config.focus) {
-        console.log('Input组件[', this.componentid, ']当前没有聚焦，触发change事件')
+        this.debugLog('Input组件[', this.componentid, ']当前没有聚焦，触发change事件')
         this.$emit('updateInput', curVal)
         this.$emit('customEvent', this.componentid, 'change', curVal)
         this.config.valueChanged = false

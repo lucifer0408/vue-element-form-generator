@@ -20,17 +20,35 @@
               :is="item.type"
               v-model="formCtx.formData[item.name]"
               :componentid="item.id"
+              :showDebugLog="item.debug"
               
               :activeValue="item.activeValue"
               :inactiveValue="item.inactiveValue"
               :readonly="item.readonly"
+              :size="item.size"
 
               :inputtype="item.inputtype"
               :placeholder="item.placeholder"
               :clearable="item.clearable"
               :showPassword="item.showPassword"
-              :size="item.size"
               :rows="item.rows"
+
+              :button="item.button"
+              :dictList="item.dictList"
+              :textColor="item.textColor"
+              :fillColor="item.fillColor"
+              :textField="item.textField"
+              :valueField="item.valueField"
+
+              :min="item.min"
+              :max="item.max"
+
+              :step="item.step"
+              :controls="item.controls"
+              :precision="item.precision"
+
+              :multiple="item.multiple"
+              :limit="item.limit"
 
               @customEvent="handleEvent"
             ></component>
@@ -63,10 +81,14 @@
 import MySwitch from './form-components/MySwitch'
 import MyButton from './form-components/MyButton'
 import MyInput from './form-components/MyInput'
+import MyRadio from './form-components/MyRadio'
+import MyCheckbox from './form-components/MyCheckbox'
+import MyNumber from './form-components/MyNumber'
+import MySelect from './form-components/MySelect'
 
 export default {
   // eslint-disable-next-line
-  components: { MySwitch, MyButton, MyInput },
+  components: { MySwitch, MyButton, MyInput, MyRadio, MyCheckbox, MyNumber, MySelect },
   model: {
     prop: 'formData',
     event: 'updateForm'
@@ -109,9 +131,7 @@ export default {
         /* 表单数据 */
         formData: this.formData,
         /* 表单依赖的外部参数 */
-        params: this.params,
-        /* 时间集合 */
-        events: {}
+        params: this.params
       },
       /* 表单配置(根据传入配置生成的可以被组件识别的配置) */
       formConfigPage: {},
@@ -124,8 +144,13 @@ export default {
      * @description: 生成表单的配置和默认数据
      */
     generateFormConfigAndDefaultData() {
-      console.log('开始生成表单配置')
       let config = {}, defaultData = {}
+      
+      // 处理表单整体的debug标记
+      config.debug = (this.formConfig.debug == undefined ? false : this.formConfig.debug) && (process.env.NODE_ENV === 'development')
+      this.formConfigPage.debug = config.debug
+
+      this.debugLog('开始生成表单配置')
 
       // 处理表单字段、事件、默认数据
       let items = [], rowwidth = 0
@@ -133,6 +158,9 @@ export default {
       if (this.formConfig.items) {
         for (let i = 0; i < this.formConfig.items.length; i++) {
           const item = JSON.parse(JSON.stringify(this.formConfig.items[i]))
+
+          // 处理字段的debug标记
+          item.debug = (process.env.NODE_ENV === 'development') && (item.debug == undefined ? false : item.debug)
 
           // 判断是否存在id，如果不存在需要跳过
           if (!(item.id) && item.type !== 'fill') {
@@ -165,16 +193,43 @@ export default {
               item.type = 'MySwitch'
 
               // 处理默认数据
-              if (item.default != undefined) {
-                defaultData[item.name] = item.default
-              } else {
-                defaultData[item.name] = item.inactiveValue == undefined ? false : item.inactiveValue
-              }
+              defaultData[item.name] = item.default != undefined ? item.default : (item.inactiveValue == undefined ? false : item.inactiveValue)
 
               break
             /* 处理按钮 */
             case 'button':
               item.type = 'MyButton'
+              break
+            /* 处理单选框 */
+            case 'radio':
+              item.type = 'MyRadio'
+
+              // 处理默认数据
+              defaultData[item.name] = item.default != undefined ? item.default : ''
+
+              break
+            /* 处理复选框 */
+            case 'checkbox':
+              item.type = 'MyCheckbox'
+
+              // 处理默认数据
+              defaultData[item.name] = item.default != undefined ? item.default : []
+
+              break
+            case 'number':
+              item.type = 'MyNumber'
+
+              // 处理默认数据
+              defaultData[item.name] = item.default != undefined ? item.default : 0
+
+              break
+            /* 处理下拉框 */
+            case 'select': 
+              item.type = 'MySelect'
+
+              // 处理默认数据
+              defaultData[item.name] = item.default != undefined ? item.default : (item.multiple ? [] : '')
+
               break
             /* 处理文本 */
             case 'text':/* text文本 */
@@ -188,11 +243,14 @@ export default {
               item.type = 'MyInput'
 
               //处理默认值
-              defaultData[item.name] = item.default == undefined ? '' : item.default
+              defaultData[item.name] = item.default != undefined ? item.default : ''
 
               break
             default:
               // 默认按照文本进行处理
+              item.type = 'MyInput'
+              item.inputtype = 'text'
+              defaultData[item.name] = item.default != undefined ? item.default : ''
           }
 
           items.push(item)
@@ -202,23 +260,22 @@ export default {
 
       this.formConfigPage = config
       this.formDefaultData = defaultData
-      // console.log('处理后的表单设置: ', this.formConfigPage)
-      // console.log('处理后的表单默认数据', this.formDefaultData)
     },
     /**
      * @description: 将外部传入的表单数据和表单的默认数据进行合并(以表单的外部数据为主)
      */
     generateFormDataWithDefault() {
+      this.debugLog('开始生成表单数据')
       this.formCtx.formData = {
         ...this.formDefaultData,
         ...this.formCtx.formData
       }
-      // console.log('生成的表单数据', this.formCtx.formData)
     },
     /**
      * @description: 生成表单事件
      */
     generateFormEvents() {
+      this.debugLog('开始生成表单事件')
       let events = {}
       for (let i = 0; i < this.formConfig.items.length; i++) {
         const item = this.formConfig.items[i]
@@ -240,13 +297,28 @@ export default {
       }
 
       let formCtx = this.formCtx
+
+      // 查找componentType，用于输出日志
+      let componentType = undefined
+      for (let i = 0; i < this.formConfigPage.items.length; i++) {
+        const item = this.formConfigPage.items[i]
+
+        if (item.id == componentid) {
+          componentType = item.type
+        }
+      }
+
+      // 触发了事件
       if (this.formConfigPage.events && this.formConfigPage.events[componentid] && this.formConfigPage.events[componentid][eventName]) {
+        this.debugLog(componentid, componentType, '组件[', componentid, ']触发了[', eventName, ']事件，事件已配置，即将开始执行...')
         let func = this.formConfigPage.events[componentid][eventName]
         new Promise((resolve) => {
           resolve()
         }).then(() => {
           func(formCtx, ...args)
         })
+      } else {
+        this.debugLog(componentid, componentType, '组件[', componentid, ']触发了[', eventName, ']事件，事件未配置')
       }
     },
     /**
@@ -255,6 +327,7 @@ export default {
     initFinish() {
       const _this = this
       const formCtx = _this.formCtx
+      this.debugLog('表单初始化完成')
 
       if (_this.formConfig.lifecycle.initFinish) {
         const func = _this.formConfig.lifecycle.initFinish
@@ -270,7 +343,18 @@ export default {
      * @description: 更新表单配置后的生命周期函数
      */
     updateFinish() {
-      console.log('updateFinish')
+      const _this = this
+      const formCtx = _this.formCtx
+      this.debugLog('表单更新完成')
+
+      if (_this.formConfig.lifecycle.updateFinish) {
+        const func = _this.formConfig.lifecycle.updateFinish
+        new Promise(resolve => {
+          resolve()
+        }).then(() => {
+          func(formCtx)
+        })
+      }
     },
     /**
      * @description: 生成可操作性的Form对象--formCtx
@@ -297,6 +381,34 @@ export default {
           if (_this.formConfigPage.items[i].id === componentid) {
             _this.formConfigPage.items[i][key] == value
           }
+        }
+      }
+    },
+    /**
+     * @description: 记录日志
+     */
+    debugLog(componentid, ...loginfo) {
+      let componentFlag = false, logFlag = false
+      
+      if (this.formConfigPage.items) {
+        for (let i = 0; i < this.formConfigPage.items.length; i++) {
+          const item = this.formConfigPage.items[i]
+
+          if (item.id == componentid) {
+            componentFlag = true
+            logFlag = item.debug
+            break
+          }
+        }
+      }
+
+      if (componentFlag) {
+        if (logFlag) {
+          console.log(...loginfo)
+        }
+      } else {
+        if (this.formConfigPage.debug) {
+          console.log(componentid, ...loginfo)
         }
       }
     }

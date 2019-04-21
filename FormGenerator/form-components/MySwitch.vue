@@ -21,8 +21,11 @@
 </template>
 
 <script>
+import LogMixin from '../mixins/log-mixin'
+
 export default {
   name: 'MySwitch',
+  mixins: [ LogMixin ],
   model: {
     prop: 'selectval',
     event: 'updateSwitch'
@@ -56,11 +59,11 @@ export default {
   },
   watch: {
     selectval(curVal, oldVal) {
-      console.log('Switch组件[', this.componentid, ']外部的值改变了，从', oldVal, '变成了', curVal)
+      this.debugLog('Switch组件[', this.componentid, ']外部的值改变了，从', oldVal, '变成了', curVal)
       this.switchVal = curVal
     },
     switchVal(curVal, oldVal) {
-      console.log('Switch组件[', this.componentid, ']内部的值改变了，从', oldVal, '变成了', curVal)
+      this.debugLog('Switch组件[', this.componentid, ']内部的值改变了，从', oldVal, '变成了', curVal)
       this.$emit('updateSwitch', curVal)
       this.$emit('customEvent', this.componentid, 'change', curVal)
     }

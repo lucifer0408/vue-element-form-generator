@@ -27,8 +27,11 @@
 </template>
 
 <script>
+import LogMixin from '../mixins/log-mixin'
+
 export default {
   name: 'MyButton',
+  mixins: [LogMixin],
   props: {
     btnType: {
       type: String,
