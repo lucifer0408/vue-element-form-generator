@@ -200,6 +200,9 @@ export default {
             case 'button':
               item.type = 'MyButton'
               break
+            /* 处理填充位 */
+            case 'fill':
+              break
             /* 处理单选框 */
             case 'radio':
               item.type = 'MyRadio'
@@ -473,6 +476,10 @@ export default {
 }
 
 .fill-component {
+  height: 50px;
+}
+
+/deep/.el-form-item__content {
   height: 50px;
 }
 </style>
