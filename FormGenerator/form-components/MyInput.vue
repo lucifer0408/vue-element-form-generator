@@ -155,7 +155,7 @@ export default {
 </script>
 
 <style scoped>
-.el-input {
+/deep/.el-input {
   width: auto;
 }
 </style>
