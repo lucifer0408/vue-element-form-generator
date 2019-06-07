@@ -4,7 +4,7 @@
 * 通过JSON对象的方式创建表单，简单易上手  
 * 添加initFinish和updateFinish钩子，适用于表单初始化完成和更新完成等表单整体的默认事件  
 * 创建表单的可操作对象formCtx，定义了表单可操作属性和可操作方法，在表单的钩子和控件的事件中默认可用  
-* 支持24栅格布局，方便进行布局安排  
+* 使用ElementUI默认的24栅格布局，方便进行布局安排  
 * 提供占位组件，占满整行，下一个组件直接另起一行开始  
 
 ## 1. 使用先决条件
@@ -36,9 +36,29 @@
   }
 ```
 
-## 2. 支持的表单控件类型以及相应属性、事件的描述
+  * 全局引入，在main.js中引用:
+```
+  import FormGenerator from 'vue-element-form-generator'
+  Vue.component(FormGenerator)
+```
 
-### 2.1 Input(输入框)
+## 2. FormGenerator的内置对象
+
+* formData: 表单当前的数据
+* params: 表单依赖的外部参数
+* resetForm: 
+
+| 名称 | 类型 | 含义 |
+| --- | --- | --- |
+| formData | 属性 | 表单当前的数据 |
+| params | 属性 | 表单依赖的外部参数 |
+| resetForm | 方法 | 取消表单所有的改动，将表单重置为初始状态 |
+| setItemOption | 方法 | 设置表单字段的属性(id, type, name不能设置) |
+
+
+## 3. 支持的表单控件类型以及相应属性、事件的描述
+
+### 3.1 Input(输入框)
 
 * 属性
 
@@ -105,7 +125,7 @@
 }
 ```
     
-### 2.2 Switch(开关)
+### 3.2 Switch(开关)
 
 * 属性
 
@@ -127,5 +147,3 @@
 | ----- | ----- | ----- | ----- |
 | formCtx | Object | 是 | 表单可操作对象 |
 | value | String/Number/Boolean | 否 | 当前值(类型视activeValue和inactiveValue的类型而定) |
-
-## 3. formCtx对象详述

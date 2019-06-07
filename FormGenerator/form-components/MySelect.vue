@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import LogMixin from '../mixins/log-mixin'
+import LogMixin from '../mixins/component-log-mixin'
 
 export default {
   name: 'MySelect',
@@ -39,7 +39,14 @@ export default {
     selectval: {
       type: [String, Array],
       default() {
-        return ''
+        // 根据是否多选，来判断默认值
+        if (this.multiple === undefined || !this.multiple) {
+          // multiple未定义(默认false) 或者是 multiple为false -> 单选模式
+          return ''
+        } else {
+          // 复选模式
+          return []
+        }
       }
     },
     componentid: {

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import LogMixin from '../mixins/log-mixin'
+import LogMixin from '../mixins/component-log-mixin'
 
 export default {
 	name: 'MyRadio',
@@ -46,7 +46,9 @@ export default {
 	props: {
 		radioval: {
 			type: [String, Number],
-			default: ''
+			default() {
+				return ''
+			}
 		},
 		button: {
 			type: Boolean,

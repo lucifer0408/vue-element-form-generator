@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import LogMixin from '../mixins/log-mixin'
+import LogMixin from '../mixins/component-log-mixin'
 
 export default {
   name: 'MySwitch',
@@ -33,7 +33,16 @@ export default {
   props: {
     selectval: {
       type: [Boolean, String, Number],
-      default: false
+      default() {
+        // selectval为空，根据inactiveValue来判断
+        if (this.inactiveValue === undefined) {
+          // inactiveValue为空，按照默认值处理
+          return false
+        } else {
+          // inactiveValue不为空，根据类型来处理来处理
+          return this.inactiveValue
+        }
+      }
     },
     activeValue: {
       type: [Boolean, String, Number],

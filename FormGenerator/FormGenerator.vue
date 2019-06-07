@@ -85,10 +85,11 @@ import MyRadio from './form-components/MyRadio'
 import MyCheckbox from './form-components/MyCheckbox'
 import MyNumber from './form-components/MyNumber'
 import MySelect from './form-components/MySelect'
+import MyTimepicker from './form-components/MyTimepicker'
 
 export default {
   // eslint-disable-next-line
-  components: { MySwitch, MyButton, MyInput, MyRadio, MyCheckbox, MyNumber, MySelect },
+  components: { MySwitch, MyButton, MyInput, MyRadio, MyCheckbox, MyNumber, MySelect, MyTimepicker },
   model: {
     prop: 'formData',
     event: 'updateForm'
@@ -233,6 +234,9 @@ export default {
               // 处理默认数据
               defaultData[item.name] = item.default != undefined ? item.default : (item.multiple ? [] : '')
 
+              break
+            case 'timepicker':
+              item.type = 'MyTimepicker'
               break
             /* 处理文本 */
             case 'text':/* text文本 */

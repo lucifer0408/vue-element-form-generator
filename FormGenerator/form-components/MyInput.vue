@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import LogMixin from '../mixins/log-mixin'
+import LogMixin from '../mixins/component-log-mixin'
 
 export default {
   name: 'MyInput',
@@ -47,7 +47,9 @@ export default {
   props: {
     inputvalue: {
       type: String,
-      default: ''
+      default() {
+        return ''
+      }
     },
     componentid: {
       type: String,
