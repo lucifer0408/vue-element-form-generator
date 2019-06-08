@@ -1,6 +1,6 @@
 <!--
   @author: Lucifer
-  @description: 下拉框组件
+  @description: 时间选择器组件
 
   @param: readonly(Boolean): 是否只读
   @param: isRange(Boolean): 是否为时间范围选择
@@ -12,6 +12,7 @@
   @param: endPlaceholder(String): 范围选择时结束时间的占位内容
   @param: pickerOptions(Object): 时间选择器的特殊选项
   @param: valueFormat(String): 时间格式化规则
+  @param: rangeSeparator(String): 范围选择时的分隔符
 
 	@event: change: 值改变事件
 	@event: blur: 失去焦点

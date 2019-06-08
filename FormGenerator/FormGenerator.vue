@@ -59,6 +59,8 @@
               :picker-options="item.pickerOptions"
               :range-separator="item.rangeSeparator"
 
+              :format="item.format"
+
               @customEvent="handleEvent"
             ></component>
 
@@ -96,10 +98,11 @@ import MyCheckbox from './form-components/MyCheckbox'
 import MyNumber from './form-components/MyNumber'
 import MySelect from './form-components/MySelect'
 import MyTimepicker from './form-components/MyTimepicker'
+import MyDatepicker from './form-components/MyDatepicker'
 
 export default {
   // eslint-disable-next-line
-  components: { MySwitch, MyButton, MyInput, MyRadio, MyCheckbox, MyNumber, MySelect, MyTimepicker },
+  components: { MySwitch, MyButton, MyInput, MyRadio, MyCheckbox, MyNumber, MySelect, MyTimepicker, MyDatepicker },
   model: {
     prop: 'formData',
     event: 'updateForm'
@@ -250,6 +253,32 @@ export default {
 
               // 处理默认数据
               defaultData[item.name] = item.default != undefined ? item.default : (item.isRange ? ['', ''] : '')
+
+              break
+            case 'datepicker':
+              item.type = 'MyDatepicker'
+
+              // 处理默认数据
+              if (item.debug != undefined) {
+                defaultData[item.name] = item.default
+              } else {
+                switch (item.inputtype) {
+                  case 'year':
+                  case 'month':
+                  case 'date':
+                  case 'datetime':
+                  case 'week':
+                    defaultData[item.name] = ''
+                  case 'dates':
+                    defaultData[item.name] = []
+                  case 'daterange':
+                  case 'datetimerange':
+                  case 'monthrange':
+                    defaultData[item.name] = ['', '']
+                  default:
+                    defaultData[item.name] = ''
+                }
+              }
 
               break
             /* 处理文本 */

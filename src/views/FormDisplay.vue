@@ -6,6 +6,18 @@
     <p>{{JSON.stringify(formData, 2)}}</p>
 
     <br/>
+
+    <el-date-picker
+      type="date"
+      :readonly="democonfig.readonly"
+      :editable="democonfig.editable"
+      :clearable="democonfig.clearable"
+      size="medium"
+      placeholder="请选择日期"
+      value-format="yyyy-MM-dd"
+      format="yyyy-MM-dd"
+      default-time="['17:33:52','17:33:52']"
+    ></el-date-picker>
   </div>
 </template>
 
@@ -262,6 +274,13 @@
               label: '时间段1'
             },
             {
+              type: 'datepicker',
+              id: 'datepicker1',
+              name: 'datepicker1',
+              width: 6,
+              label: '日期1'
+            },
+            {
               type: 'button',
               btnText: '按钮1',
               id: 'btn1',
@@ -290,6 +309,12 @@
         },
         formData: {
           switch2: 0
+        },
+        demo: '',
+        democonfig: {
+          readonly: false,
+          editable: false,
+          clearable: true
         }
       }
     },
