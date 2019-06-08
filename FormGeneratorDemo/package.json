@@ -11,7 +11,7 @@
   "dependencies": {
     "element-ui": "^2.9.1",
     "vue": "^2.6.6",
-    "vue-element-form-generator": "0.0.1",
+    "vue-element-form-generator": "1.0.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

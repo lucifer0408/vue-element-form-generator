@@ -1,7 +1,7 @@
 {
   "name": "vue-element-form-generator",
   "author": "Lucifer",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": false,
   "scripts": {
     "test": "echo \"This is Vue-Element-Form-Generator\""
@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/lucifer0408/vue-element-form-generator/issues"
   },
-  "homepage": "https://github.com/lucifer0408/vue-element-form-generator#readme",
+  "homepage": "https://github.com/lucifer0408/vue-element-form-generator/tree/master/FormGenerator#readme",
   "files": [
     "package.json",
     "index.js",
