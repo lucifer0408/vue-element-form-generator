@@ -53,7 +53,9 @@ export default {
     },
     componentid: {
       type: String,
-      default: ''
+      default() {
+        return 'input' + new Date().toString()
+      }
     },
     inputtype: {
       type: String,

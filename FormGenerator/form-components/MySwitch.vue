@@ -58,7 +58,9 @@ export default {
     },
     componentid: {
       type: String,
-      default: 'switch'
+      default() {
+        return 'switch' + new Date().toString()
+      }
     }
   },
   data() {

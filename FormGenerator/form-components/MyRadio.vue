@@ -86,7 +86,9 @@ export default {
 		},
 		componentid: {
       type: String,
-      default: 'switch'
+      default() {
+        return 'radio' + new Date().toString()
+			}
     }
 	},
 	data() {

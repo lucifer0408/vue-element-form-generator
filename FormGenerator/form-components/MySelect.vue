@@ -1,3 +1,24 @@
+<!--
+  @author: Lucifer
+  @description: 下拉框组件
+
+  @param: multiple(Boolean): 是否多选
+  @param: size(String): 尺寸
+  @param: clearable(Boolean): 是否显示清除按钮
+  @param: multiple-limit(Number): 最大选择数量(多选时可用)，为0时不限制
+  @param: placeholder(String): 占位文本
+  @param: dictList(Array): 选项列表
+	@param: textField(String): 选项列表文本域
+	@param: valueField(String): 选项列表值域
+	@param: readonly(Boolean): 是否只读
+
+	@event: change: 值改变事件
+	@evnet: visible-change: 下拉框出现/隐藏事件
+	@event: remove-tag: 移除选中tag(多选时可用)
+	@event: clear: 清空选中选项
+	@event: blur: 失去焦点
+	@event: focus: 获得焦点
+-->
 <template>
   <div>
     <el-select
@@ -7,7 +28,8 @@
       :size="size"
       :clearable="clearable"
       :placeholder="placeholder"
-      :multiple-limit="limit"
+      :multiple-limit="multipleLimit"
+      :disabled="readonly"
 
       @clear="handleClear"
       @visible-change="handleVisibleChange"
@@ -51,7 +73,9 @@ export default {
     },
     componentid: {
       type: String,
-      default: 'switch'
+      default() {
+        return 'select' + new Date().toString()
+      }
     },
     multiple: {
       type: Boolean,
@@ -65,7 +89,7 @@ export default {
       type: Boolean,
       default: true
     },
-    limit: {
+    multipleLimit: {
       type: Number,
       default: 0
     },
@@ -86,7 +110,11 @@ export default {
 		valueField: {
 			type: String,
 			default: 'value'
-		}
+		},
+    readonly: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

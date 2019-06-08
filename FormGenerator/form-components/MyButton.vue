@@ -54,8 +54,10 @@ export default {
       default: 'medium'
     },
     componentid: {
-      type: [String, Number],
-      default: ''
+      type: String,
+      default() {
+        return 'button' + new Date().toString()
+      }
     },
     btnText: {
       type: String,

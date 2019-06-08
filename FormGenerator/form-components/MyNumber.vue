@@ -103,7 +103,9 @@ export default {
     },
     componentid: {
       type: String,
-      default: 'switch'
+      default() {
+        return 'number' + new Date().toString()
+      }
     },
     min: {
       type: Number,

@@ -18,6 +18,7 @@
             <component
               v-if="item.type != 'fill' && item.type != 'MyButton'"
               :is="item.type"
+              :ref="item.id"
               v-model="formCtx.formData[item.name]"
               :componentid="item.id"
               :showDebugLog="item.debug"
@@ -30,11 +31,11 @@
               :inputtype="item.inputtype"
               :placeholder="item.placeholder"
               :clearable="item.clearable"
-              :showPassword="item.showPassword"
+              :show-password="item.showPassword"
               :rows="item.rows"
 
               :button="item.button"
-              :dictList="item.dictList"
+              :dict-list="item.dictList"
               :textColor="item.textColor"
               :fillColor="item.fillColor"
               :textField="item.textField"
@@ -48,7 +49,15 @@
               :precision="item.precision"
 
               :multiple="item.multiple"
-              :limit="item.limit"
+              :multiple-limit="item.multipleLimit"
+
+              :start-placeholder="item.startPlaceholder"
+              :end-placeholder="item.endplaceholder"
+              :value-format="item.valueFormat"
+              :is-range="item.isRange"
+              :editable="item.editable"
+              :picker-options="item.pickerOptions"
+              :range-separator="item.rangeSeparator"
 
               @customEvent="handleEvent"
             ></component>
@@ -67,6 +76,7 @@
               :size="item.size"
               :componentid="item.id"
               :icon="item.icon"
+
               @customEvent="handleEvent"
             ></my-button>
 
@@ -237,6 +247,10 @@ export default {
               break
             case 'timepicker':
               item.type = 'MyTimepicker'
+
+              // 处理默认数据
+              defaultData[item.name] = item.default != undefined ? item.default : (item.isRange ? ['', ''] : '')
+
               break
             /* 处理文本 */
             case 'text':/* text文本 */
@@ -318,7 +332,7 @@ export default {
       // 触发了事件
       if (this.formConfigPage.events && this.formConfigPage.events[componentid] && this.formConfigPage.events[componentid][eventName]) {
         this.debugLog(componentid, componentType, '组件[', componentid, ']触发了[', eventName, ']事件，事件已配置，即将开始执行...')
-        let func = this.formConfigPage.events[componentid][eventName]
+        const func = this.formConfigPage.events[componentid][eventName]
         new Promise((resolve) => {
           resolve()
         }).then(() => {
@@ -374,9 +388,7 @@ export default {
         _this.generateFormConfigAndDefaultData()
         _this.formCtx.formData = _this.formDefaultData
         /* 为什么必须设置一个倒计时才行？ */
-        setTimeout(() => {
-          _this.generateFormEvents()
-        }, 1)
+        _this.generateFormEvents()
       }
       /* 设置字段属性 */
       _this.formCtx.setItemOption = (componentid, key, value) => {
@@ -453,10 +465,11 @@ export default {
      */
     formConfig: {
       handler(curVal) {
-        this.generateFormCtx()
         this.generateFormConfigAndDefaultData()
         this.generateFormDataWithDefault()
         this.generateFormEvents()
+
+        this.generateFormCtx()
 
         if (!this.initFlag && curVal.lifecycle.updateFinish) {
           this.updateFinish()
