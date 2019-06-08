@@ -269,12 +269,15 @@ export default {
                   case 'datetime':
                   case 'week':
                     defaultData[item.name] = ''
+                    break
                   case 'dates':
                     defaultData[item.name] = []
+                    break
                   case 'daterange':
                   case 'datetimerange':
                   case 'monthrange':
                     defaultData[item.name] = ['', '']
+                    break
                   default:
                     defaultData[item.name] = ''
                 }

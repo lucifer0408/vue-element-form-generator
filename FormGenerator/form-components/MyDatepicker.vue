@@ -176,6 +176,7 @@ export default {
     defaultTime: {
       type: Array,
       default() {
+        const time = new Date()
         switch (this.inputtype) {
           case 'year':
           case 'month':
@@ -187,16 +188,10 @@ export default {
           case 'daterange':
           case 'datetimerange':
           case 'monthrange':
-            const time = new Date()
             return [time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(), time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()]
           default:
             return []
         }
-        const time = new Date()
-        return [
-          time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(),
-          time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
-        ]
       }
     },
     rangeSeparator: {
