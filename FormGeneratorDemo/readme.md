@@ -18,6 +18,8 @@
     * Radio（单选框）
     * Checkbox（复选框）
     * Select（下拉框）
+    * Datepicker（日期选择）
+    * Timepicker（时间选择）
 * 添加的自定义组件
     * Fill（填充占位）
 ## 4. Log开关

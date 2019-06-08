@@ -33,9 +33,9 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
+*/node_modules/
 jspm_packages/
-package-lock.json
+*/package-lock.json
 
 # TypeScript v1 declaration files
 typings/
@@ -63,7 +63,9 @@ typings/
 
 # IDE Files
 .idea
+*/.idea
 .vscode
+*/.vscode
 
 # FormGenerator Dependences
 FormGenerator/node_modules

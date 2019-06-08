@@ -7,7 +7,7 @@
     "test": "echo \"This is Vue-Element-Form-Generator\""
   },
   "dependencies": {
-    "element-ui": "^2.7.0",
+    "element-ui": "^2.9.1",
     "vue": "^2.6.6"
   },
   "devDependencies": {},
@@ -31,6 +31,7 @@
     "package.json",
     "index.js",
     "FormGenerator.vue",
-    "form-components/*"
+    "form-components/*",
+    "mixins/*"
   ]
 }

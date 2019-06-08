@@ -1,5 +1,5 @@
 {
-  "name": "vue-element-form-generator-demo",
+  "name": "form-generator-demo",
   "author": "Lucifer",
   "version": "0.0.1",
   "private": true,
@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "element-ui": "^2.7.0",
+    "element-ui": "^2.9.1",
     "vue": "^2.6.6",
     "vue-element-form-generator": "0.0.1",
     "vue-router": "^3.0.1",
